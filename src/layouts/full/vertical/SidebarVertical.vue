@@ -1,0 +1,29 @@
+<script setup>
+import { useCustomizerStore } from '@/store/menuStore';
+import sidebarItem from './sidebarItem';
+import NavItem from './NavItem/NavItem.vue';
+import NavGroup from './NavGroup/NavGroup.vue';
+import NavCollapse from './NavCollapse/NavCollapse.vue';
+import { shallowRef } from 'vue';
+
+const customizer = useCustomizerStore();
+const sidebarMenu = shallowRef(sidebarItem);
+</script>
+<template>
+    <v-navigation-drawer left v-model="customizer.Sidebar_drawer" elevation="0" rail-width="75" app class="sidebar"
+        :rail="customizer.mini_sidebar" expand-on-hover>
+        <v-list class="pa-4">
+            <template v-for="(item, i) in sidebarMenu" :key="i">
+                <!---Item Sub Header -->    
+                <NavGroup :item="item" v-if="item.header" :key="item.title" />
+                <!---Item Divider -->
+                <v-divider class="my-3" v-else-if="item.divider" />
+                <!---If Has Child -->
+                <NavCollapse class="leftPadding" :item="item" :level="0" v-else-if="item.children" />
+                <!---Single Item-->
+                <NavItem :item="item" v-else class="leftPadding" />
+                <!---End Single Item-->
+            </template>
+        </v-list>
+    </v-navigation-drawer>
+</template>

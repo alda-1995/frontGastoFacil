@@ -1,0 +1,124 @@
+html {
+    .bg-success {
+        color: white !important;
+    }
+}
+
+.v-row + .v-row {
+    margin-top: 0px;
+}
+
+.v-divider {
+    opacity: 1;
+    border-color: rgba(var(--v-theme-borderLight), 0.36);
+}
+
+.v-selection-control {
+    flex: unset;
+}
+
+.customizer-btn .icon {
+    animation: progress-circular-rotate 1.4s linear infinite;
+    transform-origin: center center;
+    transition: all 0.2s ease-in-out;
+}
+
+.no-spacer {
+    .v-list-item__spacer {
+        display: none !important;
+    }
+}
+
+@keyframes progress-circular-rotate {
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+.text-h1-me{
+    font-family: inherit;
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+}
+
+.text-h2-me{
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+}
+
+.text-h3-me{
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.text-h4-me{
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.text-h5-me{
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2rem;
+}
+
+.subtitle-1-me{
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+.subtitle-2-me{
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1rem;
+}
+
+.body-1-me{
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.body-2-me{
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.v-btn{
+    font-family: inherit;
+    font-size: 0.875rem !important;
+    font-weight: 500;
+    line-height: 1;
+}
+
+caption{
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.overline{
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.rounded-md{
+    border-radius: $border-radius-root;
+}
