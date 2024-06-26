@@ -10,8 +10,17 @@ const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(sidebarItem);
 </script>
 <template>
-    <v-navigation-drawer left v-model="customizer.Sidebar_drawer" elevation="0" rail-width="75" app class="sidebar"
-        :rail="customizer.mini_sidebar" expand-on-hover>
+    <v-navigation-drawer
+    left
+    v-model="customizer.Sidebar_drawer"
+    elevation="0"
+    rail-width="75"
+    mobile-breakpoint="lg"
+    app
+    class="sidebar"
+    :rail="customizer.mini_sidebar"
+    expand-on-hover
+  >
         <v-list class="pa-4">
             <template v-for="(item, i) in sidebarMenu" :key="i">
                 <!---Item Sub Header -->    
