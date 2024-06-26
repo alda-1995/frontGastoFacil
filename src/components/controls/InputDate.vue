@@ -1,7 +1,6 @@
-<!-- <script setup>
-import { ErrorsMessage } from '@/components/displays/common';
+<script setup>
 import { defineProps, defineEmits, computed } from 'vue'
-import { es } from 'date-fns/locale';
+// import { es } from 'date-fns/locale';
 
 const props = defineProps({
     modelValue: {
@@ -36,8 +35,8 @@ const value = computed({
 })
 </script>
 <template>
-    <VueDatePicker class="input-date btn-font"
-    :required="isRequired" format="dd-MM-yyyy" :format-locale="es"
+    <VueDatePicker class="input-date font-button"
+    :required="isRequired" format="dd-MM-yyyy"
     @input="onInput" @blur="onBlur" v-model="value"></VueDatePicker>
     <errors-message :errors="errorMessages" />
-</template> -->
+</template>

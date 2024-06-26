@@ -46,16 +46,24 @@ const submit = async () => {
                     :error-messages="v$.lastname.$errors.map(e => e.$message)" @input="v$.lastname.$touch"
                     @blur="v$.lastname.$touch" is-required label="Apellido" />
             </v-col>
+            <v-col cols="12">
+                <input-field icon="mdi-email-outline" type="email" v-model="state.email"
+                    :error-messages="v$.email.$errors.map(e => e.$message)" @input="v$.email.$touch"
+                    @blur="v$.email.$touch" isRequired label="Correo electronico" />
+            </v-col>
+            <v-col cols="12">
+                <input-password v-model="state.password" :error-messages="v$.password.$errors.map(e => e.$message)"
+                    isRequired label="Contraseña" icon="mdi-lock-outline" @input="v$.password.$touch"
+                    @blur="v$.password.$touch()" />
+            </v-col>
+            <v-col cols="12">
+                <btn-main type="submit" :is-block="true" :loading="loading" class="mb-4">Registrarme</btn-main>
+            </v-col>
         </v-row>
-        <input-field icon="mdi-email-outline" type="email" v-model="state.email"
-            :error-messages="v$.email.$errors.map(e => e.$message)" @input="v$.email.$touch" @blur="v$.email.$touch"
-            isRequired label="Correo electronico" />
-        <input-password v-model="state.password" :error-messages="v$.password.$errors.map(e => e.$message)" isRequired
-            label="Contraseña" icon="mdi-lock-outline" @input="v$.password.$touch" @blur="v$.password.$touch()" />
-        <btn-main type="submit" :is-block="true" :loading="loading" class="mb-4">Registrarme</btn-main>
         <div class="mt-5 text-right">
             <v-divider />
-            <btn-main href="/auth/register" color="darkText" variant="plain" type="link" class="mt-2 text-capitalize mr-n2">Ya tengo una cuenta?</btn-main>
+            <btn-main href="/auth/register" color="darkText" variant="plain" type="link"
+                class="mt-2 text-capitalize mr-n2">Ya tengo una cuenta?</btn-main>
         </div>
     </form>
 </template>

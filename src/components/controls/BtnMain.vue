@@ -47,7 +47,7 @@ const handleClick = () => {
 };
 </script>
 <template>
-    <v-btn :to="type === 'link' ? href : null" :loading="loading"
+    <v-btn :to="type === 'link' ? href : null" :loading="loading" class="v-btn"
     @click="type === 'button' ? handleClick() : null" :block="isBlock"
     :type="type" :size="size" :prepend-icon="icon"
     :color="color" :variant="variant">

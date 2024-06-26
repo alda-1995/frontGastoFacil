@@ -34,7 +34,7 @@ const value = computed({
 })
 </script>
 <template>
-    <v-textarea class="btn-font" color="primary" :label="label" v-model="value" :error-messages="errorMessages"
-    :required="isRequired" @input="onInput" @blur="onBlur"
+    <v-textarea class="font-button" color="primary" :label="label" v-model="value" :error-messages="errorMessages"
+    :required="isRequired" @input="onInput" @blur="onBlur" auto-grow
     variant="outlined"></v-textarea>
 </template>

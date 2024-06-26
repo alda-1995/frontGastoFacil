@@ -8,7 +8,8 @@ import {
     BugIcon,
     DashboardIcon,
     BrandChromeIcon,
-    HelpIcon
+    HelpIcon,
+    ShoppingCartIcon
   } from 'vue-tabler-icons';
   
   const sidebarItem = [
@@ -21,14 +22,31 @@ import {
     { divider: true },
     { header: 'Páginas' },
     {
+      title: 'Mis productos',
+      icon: ShoppingCartIcon,
+      to: '',
+      children: [
+        {
+          title: 'Todos los productos',
+          icon: CircleIcon,
+          to: '/productos'
+        },
+        {
+          title: 'Agregar producto',
+          icon: CircleIcon,
+          to: '/agregar-producto'
+        },
+      ]
+    },
+    {
       title: 'Mis gastos',
       icon: KeyIcon,
-      to: '/auth',
+      to: '',
       children: [
         {
           title: 'Agregar gasto',
           icon: CircleIcon,
-          to: '/auth/login'
+          to: '/agregar-gasto'
         },
         {
           title: 'Gastos del mes',

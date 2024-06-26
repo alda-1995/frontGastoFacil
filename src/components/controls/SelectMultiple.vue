@@ -27,17 +27,6 @@ const props = defineProps({
         default: false,
     },
 })
-const toggle = () => {
-    if (value.value.length > 0) {
-        value.value = []
-    } else {
-        value.value = props.items.map((v) => (v.id)).slice();
-    }
-};
-
-const isCheckAll = computed(() => {
-    return value.value.length > 0;
-});
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -52,15 +41,7 @@ const value = computed({
 </script>
 <template>
     <div>
-        <v-select class="btn-font" color="primary" variant="outlined" v-model="value" :items="items" :label="label" item-title="nombre" item-value="id" multiple>
-            <template v-slot:prepend-item>
-                <v-list-item title="Todos" @click="toggle">
-                    <template v-slot:prepend>
-                        <v-checkbox-btn :model-value="isCheckAll"></v-checkbox-btn>
-                    </template>
-                </v-list-item>
-                <v-divider class="mt-2"></v-divider>
-            </template>
+        <v-select class="font-button" color="primary" variant="outlined" v-model="value" :items="items" :label="label" item-title="nombre" item-value="value" multiple>
         </v-select>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-const select = ref({ state: 'Today', abbr: 'FL' });
+const select = ref({ state: 'Hoy', abbr: 'FL' });
 const items = [
   { state: 'Hoy', abbr: 'FL' },
   { state: 'Mes', abbr: 'GA' },

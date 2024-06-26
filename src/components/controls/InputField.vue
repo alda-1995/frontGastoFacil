@@ -46,7 +46,7 @@ const value = computed({
 })
 </script>
 <template>
-    <v-text-field :prefix="prefix" class="btn-font" color="primary" :type="type" :prepend-inner-icon="icon" variant="outlined"
-        v-model="value" :error-messages="errorMessages" :label="label" @input="onInput" @blur="onBlur"
-        :required="isRequired"></v-text-field>
+    <v-text-field hide-details="auto" :prefix="prefix" class="font-button" color="primary" :type="type"
+        :prepend-inner-icon="icon" variant="outlined" v-model="value" :error-messages="errorMessages" :label="label"
+        @input="onInput" @blur="onBlur" :required="isRequired"></v-text-field>
 </template>

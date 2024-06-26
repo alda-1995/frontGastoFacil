@@ -6,17 +6,18 @@ import SelectField from '../SelectField.vue';
 import TextArea from '../TextArea.vue';
 import LabelAdd from '../LabelAdd.vue';
 import SelectMultiple from '../SelectMultiple.vue';
-import InputNumber from '../InputNumber.vue';
-// import InputDate from '../InputDate.vue';
+import InputDate from '../InputDate.vue';
+import TableAction from '../TableAction.vue';
 
 export {
     BtnMain,
     InputField,
-    InputNumber,
     InputPassword,
     SwitchLabel,
     SelectField,
     TextArea,
     LabelAdd,
-    SelectMultiple
+    SelectMultiple,
+    InputDate,
+    TableAction
 };
