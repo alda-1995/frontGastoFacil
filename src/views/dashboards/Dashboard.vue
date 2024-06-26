@@ -1,5 +1,5 @@
 <script setup>
-import { TotalCard, TotalBill, TotalGrows, PopularBill } from '@/components/dashboard/common';
+import { TotalCard, TotalBill, TotalGrows, PopularBill, TotalIncome } from '@/components/dashboard/common';
 </script>
 <template>
     <v-row>
@@ -8,6 +8,9 @@ import { TotalCard, TotalBill, TotalGrows, PopularBill } from '@/components/dash
         </v-col>
         <v-col cols="12" md="4">
             <total-bill />
+        </v-col>
+        <v-col cols="12" md="4">
+            <total-income />
         </v-col>
     </v-row>
     <v-row>
