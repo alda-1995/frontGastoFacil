@@ -49,15 +49,15 @@ import {
           to: '/agregar-gasto'
         },
         {
-          title: 'Gastos del mes',
+          title: 'Consultar mis gastos',
           icon: CircleIcon,
-          to: '/auth/register'
+          to: '/mis-gastos'
         },
-        {
-          title: 'Gasto Anual',
-          icon: CircleIcon,
-          to: '/auth/register'
-        },
+        // {
+        //   title: 'Gasto Anual',
+        //   icon: CircleIcon,
+        //   to: '/auth/register'
+        // },
       ]
     },
   ];

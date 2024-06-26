@@ -37,7 +37,7 @@ const submit = async () => {
         <v-col cols="12" sm="10" md="8">
             <v-card>
                 <v-card-title class="padding-g-forms">
-                    Agregar gasto
+                    Editar gasto
                 </v-card-title>
                 <v-divider />
                 <v-card-text class="padding-g-forms">

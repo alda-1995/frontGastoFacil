@@ -24,10 +24,6 @@ const listItems = reactive([
     }
 ]);
 
-const addProduct = () => {
-    // router.push('/agregar-producto');
-};
-
 const editProduct = (item) => {
     router.push({ name: 'EditarProducto', params: { id: item.id } });
 };
@@ -46,7 +42,7 @@ const deleteProduct = () => {
                 <v-divider />
                 <v-card-text class="padding-g-forms">
                     <table-action 
-                    @new-item="addProduct()" 
+                    @new-item="router.push('/agregar-producto')" 
                     @edit-item="editProduct"
                     @delete-item="deleteProduct()"
                     :headers="headersTable"

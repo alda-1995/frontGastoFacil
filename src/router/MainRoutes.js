@@ -27,6 +27,11 @@ const MainRoutes = {
         component: () => import('@/views/gastos/AddSpentPage.vue')
       },
       {
+        name: 'EditarGasto',
+        path: '/editar-gasto/:id',
+        component: () => import('@/views/gastos/EditSpentPage.vue')
+      },
+      {
         name: 'Productos',
         path: '/productos',
         component: () => import('@/views/products/ProductsPage.vue')
