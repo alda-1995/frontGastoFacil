@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { TableAction } from '@/components/controls/common';
 import { useRouter } from 'vue-router'
 import { useProductStore } from '@/store/productStore';
@@ -21,7 +21,7 @@ const headersTable = [
 ];
 
 const state = reactive({
-    listItems : []
+    listItems: []
 });
 
 const editProduct = (item) => {
@@ -29,11 +29,18 @@ const editProduct = (item) => {
 };
 
 const deleteProduct = async (item) => {
-    await productStore.deleteProduct(item.id);
+    await productStore.deleteProduct(item.id).catch(function ({ response }) {
+        let errorMessage = getMessageErrors(response);
+        toast(errorMessage, {
+            "theme": "auto",
+            "type": "warning",
+            "dangerouslyHTMLString": true
+        });
+    });
     state.listItems = productStore.listProducts;
 };
 
-onMounted(async()=> {
+onMounted(async () => {
     await productStore.getProducts()
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
@@ -55,13 +62,8 @@ onMounted(async()=> {
                 </v-card-title>
                 <v-divider />
                 <v-card-text class="padding-g-forms">
-                    <table-action 
-                    @new-item="router.push('/agregar-producto')" 
-                    @edit-item="editProduct"
-                    @delete-item="deleteProduct"
-                    :headers="headersTable"
-                    :list-items="state.listItems"
-                    />
+                    <table-action @new-item="router.push('/agregar-producto')" @edit-item="editProduct"
+                        @delete-item="deleteProduct" :headers="headersTable" :list-items="state.listItems" />
                 </v-card-text>
             </v-card>
         </v-col>

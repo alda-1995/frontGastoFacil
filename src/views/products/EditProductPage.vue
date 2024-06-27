@@ -1,20 +1,28 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, helpers } from '@vuelidate/validators';
 import { InputField, TextArea, BtnMain } from '@/components/controls/common';
+import { useProductStore } from '@/store/productStore';
+import getMessageErrors from '@/helpers/util';
+import { toast } from "vue3-toastify";
+import { useRoute } from 'vue-router'
 
+const productStore = useProductStore();
+const route = useRoute();
 const loading = ref(false);
+const loadingData = ref(true);
 const state = reactive({
-    nombre: '',
-    descripcion: '',
+    id: '',
+    name: '',
+    description: '',
 });
 
 const rules = {
-    nombre: {
+    name: {
         required: helpers.withMessage('El nombre es requerido', required),
     },
-    descripcion: {
+    description: {
         required: helpers.withMessage('La descripción es requerida', required),
     },
 }
@@ -22,13 +30,45 @@ const v$ = useVuelidate(rules, state)
 const submit = async () => {
     const isValid = await v$.value.$validate()
     if (!isValid)
-        return
+        return;
+    loading.value = true;
+    await productStore.saveProduct(state.id, state.name, state.description)
+        .catch(function ({ response }) {
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
+    loading.value = false;
 };
+
+onMounted(async () => {
+    if (!route.params.id) {
+        return;
+    }
+    const resultData = await productStore.getDetailProduct(route.params.id)
+        .catch(function ({ response }) {
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
+    state.id = resultData.product_id;
+    state.name = resultData.name;
+    state.description = resultData.description;
+    loadingData.value = false;
+});
 </script>
 <template>
     <v-row>
         <v-col cols="12" sm="10" md="8">
-            <v-card>
+            <v-skeleton-loader type="table-heading, list-item, list-item, button" height="400"
+                v-if="loadingData"></v-skeleton-loader>
+            <v-card v-else="!loadingData">
                 <v-card-title class="padding-g-forms">
                     Editar producto
                 </v-card-title>
@@ -37,9 +77,9 @@ const submit = async () => {
                     <form novalidate @submit.prevent="submit">
                         <v-row>
                             <v-col cols="12">
-                                <input-field type="text" v-model="state.nombre"
-                                    :error-messages="v$.nombre.$errors.map(e => e.$message)" @input="v$.nombre.$touch"
-                                    @blur="v$.nombre.$touch" isRequired label="Nombre*" />
+                                <input-field type="text" v-model="state.name"
+                                    :error-messages="v$.name.$errors.map(e => e.$message)" @input="v$.name.$touch"
+                                    @blur="v$.name.$touch" isRequired label="Nombre*" />
                             </v-col>
                         </v-row>
                         <v-row>

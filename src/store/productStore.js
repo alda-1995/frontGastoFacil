@@ -28,6 +28,14 @@ export const useProductStore = defineStore({
             await axios.post(`${baseUrl}/create-product`, { name, description, "user_id": idUser });
             router.push("/productos");
         },
+        async saveProduct(id, name, description) {
+            await axios.put(`${baseUrl}/update-product/${id}`, { name, description});
+            router.push("/productos");
+        },
+        async getDetailProduct(idProduct){
+            const result = await axios.get(`${baseUrl}/detail-product/${idProduct}`);
+            return result.data;
+        },
         async deleteProduct(idProduct){
             const result = await axios.delete(`${baseUrl}/delete-products/${idProduct}`);
             this.listProducts = this.listProducts.filter(p => p.id !== idProduct);

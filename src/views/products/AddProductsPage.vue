@@ -4,6 +4,8 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, helpers } from '@vuelidate/validators';
 import { InputField, TextArea, BtnMain } from '@/components/controls/common';
 import { useProductStore } from '@/store/productStore';
+import getMessageErrors from '@/helpers/util';
+import { toast } from "vue3-toastify";
 
 const productStore = useProductStore();
 const loading = ref(false);
@@ -25,7 +27,12 @@ const submit = async () => {
     loading.value = true;
     await productStore.addProduct(state.name, state.description)
         .catch(function ({ response }) {
-            console.log(response);
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
         });
     loading.value = false;
 };
