@@ -3,12 +3,15 @@ import { reactive, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { email, required, helpers } from '@vuelidate/validators';
 import { InputField, InputPassword, BtnMain } from '@/components/controls/common';
-import router from "@/router";
+import { useAuthStore } from '@/store/authStore';
+import { toast } from "vue3-toastify";
+import getMessageErrors from '@/helpers/util';
 
+const authStore = useAuthStore();
 const loading = ref(false);
 const state = reactive({
-    email: 'aldairreyess04@gmail.com',
-    password: 'alda123',
+    email: 'aldairreyess04s@gmail.com',
+    password: 'aldair123',
     isRemember: false
 });
 const rules = {
@@ -24,7 +27,29 @@ const v$ = useVuelidate(rules, state)
 const submit = async () => {
     const isValid = await v$.value.$validate()
     if (!isValid)
-        return
+        return;
+    loading.value = true;
+    await authStore.login(state.email, state.password)
+        .catch(function ({ response }) {
+            let errorMessage = "";
+            switch (response.status) {
+                case 400:
+                    errorMessage = getMessageErrors(response.data.error);
+                    break;
+                case 401:
+                    errorMessage = response.data.message;
+                    break;
+                default:
+                    errorMessage = "Ocurrio al intentar iniciar sesión, vuelve a intentarlo."
+                    break;
+            }
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
+    loading.value = false;
 };
 </script>
 <template>
@@ -37,8 +62,9 @@ const submit = async () => {
                     @blur="v$.email.$touch" isRequired label="Correo electronico" />
             </v-col>
             <v-col cols="12">
-                <input-password v-model="state.password" :error-messages="v$.password.$errors.map(e => e.$message)" isRequired
-                label="Contraseña" icon="mdi-lock-outline" @input="v$.password.$touch" @blur="v$.password.$touch()" />
+                <input-password v-model="state.password" :error-messages="v$.password.$errors.map(e => e.$message)"
+                    isRequired label="Contraseña" icon="mdi-lock-outline" @input="v$.password.$touch"
+                    @blur="v$.password.$touch()" />
             </v-col>
         </v-row>
         <div class="d-sm-flex align-center mt-2 mb-7 mb-sm-0">
