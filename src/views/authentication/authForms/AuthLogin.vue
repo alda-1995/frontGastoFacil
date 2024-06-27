@@ -31,18 +31,7 @@ const submit = async () => {
     loading.value = true;
     await authStore.login(state.email, state.password)
         .catch(function ({ response }) {
-            let errorMessage = "";
-            switch (response.status) {
-                case 400:
-                    errorMessage = getMessageErrors(response.data.error);
-                    break;
-                case 401:
-                    errorMessage = response.data.message;
-                    break;
-                default:
-                    errorMessage = "Ocurrio al intentar iniciar sesión, vuelve a intentarlo."
-                    break;
-            }
+            let errorMessage = getMessageErrors(response);
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

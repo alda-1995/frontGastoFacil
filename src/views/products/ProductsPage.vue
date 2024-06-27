@@ -3,6 +3,8 @@ import { reactive, ref, onMounted } from 'vue'
 import { TableAction } from '@/components/controls/common';
 import { useRouter } from 'vue-router'
 import { useProductStore } from '@/store/productStore';
+import getMessageErrors from '@/helpers/util';
+import { toast } from "vue3-toastify";
 
 const productStore = useProductStore();
 let router = useRouter()
@@ -34,7 +36,12 @@ const deleteProduct = async (item) => {
 onMounted(async()=> {
     await productStore.getProducts()
         .catch(function ({ response }) {
-            console.log(response);
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
         });
     state.listItems = productStore.listProducts;
 });
