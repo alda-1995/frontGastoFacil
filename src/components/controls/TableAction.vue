@@ -23,7 +23,7 @@ defineProps({
 const emits = defineEmits(['newItem', 'editItem', 'deleteItem', 'closeModal']);
 const handleDeleteItem = () => {
     confirmDelete.value = false;
-    emits("deleteItem", itemDelete);
+    emits("deleteItem", itemDelete.value);
 };
 const handleEditItem = (item) => { emits("editItem", item); };
 const handleNew = () => { emits('newItem'); };

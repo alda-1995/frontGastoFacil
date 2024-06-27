@@ -10,10 +10,12 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import Vue3Toastify from 'vue3-toastify';
 import "vue3-toastify/dist/index.css";
+import axios from './plugins/axios'
 
 // Vuetify
 import 'vuetify/styles'
 const app = createApp(App);
+app.config.globalProperties.$http = axios;
 app.component('VueDatePicker', VueDatePicker);
 app.use(router);
 app.use(Vue3Toastify,{

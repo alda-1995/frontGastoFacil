@@ -3,26 +3,31 @@ import { reactive, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, helpers } from '@vuelidate/validators';
 import { InputField, TextArea, BtnMain } from '@/components/controls/common';
+import { useProductStore } from '@/store/productStore';
 
+const productStore = useProductStore();
 const loading = ref(false);
 const state = reactive({
-    nombre: '',
-    descripcion: '',
+    name: 'Product 1',
+    description: 'lorem lorem asdasda asd as',
 });
 
 const rules = {
-    nombre: {
+    name: {
         required: helpers.withMessage('El nombre es requerido', required),
-    },
-    descripcion: {
-        required: helpers.withMessage('La descripción es requerida', required),
-    },
+    }
 }
 const v$ = useVuelidate(rules, state)
 const submit = async () => {
     const isValid = await v$.value.$validate()
     if (!isValid)
-        return
+        return;
+    loading.value = true;
+    await productStore.addProduct(state.name, state.description)
+        .catch(function ({ response }) {
+            console.log(response);
+        });
+    loading.value = false;
 };
 </script>
 <template>
@@ -37,9 +42,9 @@ const submit = async () => {
                     <form novalidate @submit.prevent="submit">
                         <v-row>
                             <v-col cols="12">
-                                <input-field type="text" v-model="state.nombre"
-                                    :error-messages="v$.nombre.$errors.map(e => e.$message)" @input="v$.nombre.$touch"
-                                    @blur="v$.nombre.$touch" isRequired label="Nombre*" />
+                                <input-field type="text" v-model="state.name"
+                                    :error-messages="v$.name.$errors.map(e => e.$message)" @input="v$.name.$touch"
+                                    @blur="v$.name.$touch" is-required label="Nombre*" />
                             </v-col>
                         </v-row>
                         <v-row>

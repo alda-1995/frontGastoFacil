@@ -3,11 +3,13 @@ import { ref } from 'vue';
 import { SettingsIcon, LogoutIcon, UserIcon } from 'vue-tabler-icons';
 import { useAuthStore } from '@/store/authStore';
 const authStore = useAuthStore();
+
+const name = (authStore.user) ? authStore.user.name : ""; 
 </script>
 
 <template>
     <div class="pa-4">
-        <h4 class="mb-2">Bienvenido, <span class="font-weight-regular">{{ authStore.user.name }}</span></h4>
+        <h4 class="mb-2">Bienvenido, <span class="font-weight-regular">{{ name }}</span></h4>
         <v-divider></v-divider>
         <v-list class="mt-3">
             <v-list-item to="/" color="secondary" rounded="md">

@@ -1,8 +1,10 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { TableAction } from '@/components/controls/common';
 import { useRouter } from 'vue-router'
+import { useProductStore } from '@/store/productStore';
 
+const productStore = useProductStore();
 let router = useRouter()
 
 const headersTable = [
@@ -11,26 +13,31 @@ const headersTable = [
         title: 'Nombre',
         align: 'start',
         sortable: false,
-        key: 'nombre',
+        key: 'name',
     },
-    { title: 'Descripción', key: 'descripcion' },
+    { title: 'Descripción', key: 'description' },
 ];
 
-const listItems = reactive([
-    {
-        "id": 1,
-        "nombre": "Producto 1",
-        "descripcion": "lorem asdad asdasd asd"
-    }
-]);
+const state = reactive({
+    listItems : []
+});
 
 const editProduct = (item) => {
     router.push({ name: 'EditarProducto', params: { id: item.id } });
 };
 
-const deleteProduct = () => {
-    alert("entra");
+const deleteProduct = async (item) => {
+    await productStore.deleteProduct(item.id);
+    state.listItems = productStore.listProducts;
 };
+
+onMounted(async()=> {
+    await productStore.getProducts()
+        .catch(function ({ response }) {
+            console.log(response);
+        });
+    state.listItems = productStore.listProducts;
+});
 </script>
 <template>
     <v-row>
@@ -44,9 +51,9 @@ const deleteProduct = () => {
                     <table-action 
                     @new-item="router.push('/agregar-producto')" 
                     @edit-item="editProduct"
-                    @delete-item="deleteProduct()"
+                    @delete-item="deleteProduct"
                     :headers="headersTable"
-                    :list-items="listItems"
+                    :list-items="state.listItems"
                     />
                 </v-card-text>
             </v-card>
