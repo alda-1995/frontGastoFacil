@@ -3,7 +3,11 @@ import { reactive, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { email, required, helpers } from '@vuelidate/validators';
 import { InputField, InputPassword, BtnMain } from '@/components/controls/common';
+import { useAuthStore } from '@/store/authStore';
+import getMessageErrors from '@/helpers/util';
+import { toast } from "vue3-toastify";
 
+const authStore = useAuthStore();
 const loading = ref(false);
 const state = reactive({
     name: "",
@@ -27,6 +31,28 @@ const submit = async () => {
     const isValid = await v$.value.$validate()
     if (!isValid)
         return
+    loading.value = true;
+    await authStore.register(state.name, state.email, state.password)
+        .catch(function ({ response }) {
+            let errorMessage = "";
+            switch (response.status) {
+                case 400:
+                    errorMessage = getMessageErrors(response.data.error);
+                    break;
+                case 401:
+                    errorMessage = response.data.message;
+                    break;
+                default:
+                    errorMessage = "Ocurrio al intentar iniciar sesión, vuelve a intentarlo."
+                    break;
+            }
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
+    loading.value = false;
 };
 </script>
 <template>

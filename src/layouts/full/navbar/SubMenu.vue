@@ -7,7 +7,7 @@ const authStore = useAuthStore();
 
 <template>
     <div class="pa-4">
-        <h4 class="mb-2">Bienvenido, <span class="font-weight-regular">Aldair</span></h4>
+        <h4 class="mb-2">Bienvenido, <span class="font-weight-regular">{{ authStore.user.name }}</span></h4>
         <v-divider></v-divider>
         <v-list class="mt-3">
             <v-list-item to="/" color="secondary" rounded="md">

@@ -1,19 +1,8 @@
 <script setup>
-import { ref } from 'vue';
 import { useCustomizerStore } from '@/store/menuStore';
 import { UserCogIcon, Menu2Icon } from 'vue-tabler-icons';
 import SubMenu from './SubMenu.vue';
-
-// dropdown imports
-// import NotificationDD from './NotificationDD.vue';
-// import ProfileDD from './ProfileDD.vue';
-// import Searchbar from './SearchBarPanel.vue';
-
 const customizer = useCustomizerStore();
-const showSearch = ref(false);
-function searchbox() {
-  showSearch.value = !showSearch.value;
-}
 </script>
 
 <template>
