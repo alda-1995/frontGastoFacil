@@ -44,14 +44,14 @@ import {
       to: '',
       children: [
         {
-          title: 'Agregar gasto',
-          icon: CircleIcon,
-          to: '/agregar-gasto'
-        },
-        {
           title: 'Consultar mis gastos',
           icon: CircleIcon,
           to: '/mis-gastos'
+        },
+        {
+          title: 'Agregar gasto',
+          icon: CircleIcon,
+          to: '/agregar-gasto'
         },
         // {
         //   title: 'Gasto Anual',

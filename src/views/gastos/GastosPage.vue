@@ -1,15 +1,17 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, ref, onMounted, watch } from 'vue';
 import { TableAction } from '@/components/controls/common';
 import { useRouter } from 'vue-router';
 import { SelectField } from '@/components/controls/common';
 import { useSpentStore } from '@/store/spentStore';
 import getMessageErrors from '@/helpers/util';
 import { toast } from "vue3-toastify";
+import { useReportGastoStore } from '@/store/reportGastoStore';
 
 let spentStore = useSpentStore();
+const reportStore = useReportGastoStore();
 let router = useRouter();
-const selectedMonth = ref("");
+const selectedMonth = ref(null);
 const state = reactive({
     listItems: []
 });
@@ -29,26 +31,74 @@ const headersTable = [
 
 const meses = [
     {
-        "id": "",
-        "nombre": "Actual"
+        "value": "all",
+        "name": "Hoy"
     },
     {
-        "id": "01",
-        "nombre": "Enero"
+        "value": "01",
+        "name": "Enero"
     },
     {
-        "id": "02",
-        "nombre": "Febrero"
+        "value": "02",
+        "name": "Febrero"
     },
     {
-        "id": "03",
-        "nombre": "Marzo"
+        "value": "03",
+        "name": "Marzo"
     },
     {
-        "id": "04",
-        "nombre": "Abril"
-    }
+        "value": "04",
+        "name": "Abril"
+    },
+    {
+        "value": "05",
+        "name": "Mayo"
+    },
+    {
+        "value": "06",
+        "name": "Junio"
+    },
+    {
+        "value": "07",
+        "name": "Julio"
+    },
+    {
+        "value": "08",
+        "name": "Agosto"
+    },
+    {
+        "value": "09",
+        "name": "Septiembre"
+    },
+    {
+        "value": "10",
+        "name": "Octubre"
+    },
+    {
+        "value": "11",
+        "name": "Noviembre"
+    },
+    {
+        "value": "12",
+        "name": "Diciembre"
+    },
 ];
+
+watch(selectedMonth, async (newFilterMonth) => {
+    if (newFilterMonth == "all") {
+        state.listItems = spentStore.listSpents;
+        return;
+    }
+    await reportStore.getTotalGastoByMonth(newFilterMonth).catch(function ({ response }) {
+        let errorMessage = getMessageErrors(response);
+        toast(errorMessage, {
+            "theme": "auto",
+            "type": "warning",
+            "dangerouslyHTMLString": true
+        });
+    });
+    state.listItems = reportStore.listSpents;
+})
 
 const editSpent = (item) => {
     router.push({ name: 'EditarGasto', params: { id: item.transaction_id } });
@@ -89,7 +139,7 @@ onMounted(async () => {
                 <v-divider />
                 <v-card-text class="padding-g-forms">
                     <div class="select-max">
-                        <select-field label="Mes" v-model="selectedMonth" :items="meses" />
+                        <select-field label="Filtrar por:" v-model="selectedMonth" :items="meses" />
                     </div>
                     <table-action @new-item="router.push('/agregar-gasto')" @edit-item="editSpent"
                         @delete-item="deleteSpent" :headers="headersTable" :list-items="state.listItems" />

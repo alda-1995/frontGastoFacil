@@ -26,6 +26,14 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    titleSelect: {
+        type: String,
+        default: 'name',
+    },
+    valueSelect: {
+        type: String,
+        default: 'value',
+    },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -41,6 +49,6 @@ const value = computed({
 </script>
 <template>
     <v-select class="btn-font" color="primary" variant="outlined" v-model="value"
-    item-title="nombre" item-value="id"
+    :item-title="titleSelect" :item-value="valueSelect" clearable
     :items="items" :label="label" :error-messages="errorMessages" :required="isRequired"></v-select>
 </template>
