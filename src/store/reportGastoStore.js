@@ -10,7 +10,9 @@ export const useReportGastoStore = defineStore({
         totalDay: null,
         totalMonth: null,
         totalYear: null,
-        listSpents: []
+        listSpents: [],
+        totalIncome: null,
+        totalSpent: null
     }),
     getters: {
         getUserId(){
@@ -22,7 +24,6 @@ export const useReportGastoStore = defineStore({
         async getTotalGasto() {
             const idUser = this.getUserId;
             const result = await axios.get(`${baseUrl}/get-spents-totals/${idUser}`);
-            console.log(result.data);
             this.totalDay = result.data.totalDay;
             this.totalMonth = result.data.totalMonth;
             this.totalYear = result.data.totalYear;
@@ -31,6 +32,12 @@ export const useReportGastoStore = defineStore({
             const idUser = this.getUserId;
             const result = await axios.get(`${baseUrl}/get-spents-month/${mes}/${idUser}`);
             this.listSpents = result.data;
-        }
+        },
+        async getTotalIncomes() {
+            const idUser = this.getUserId;
+            const result = await axios.get(`${baseUrl}/get-total-incomes/${idUser}`);
+            this.totalIncome = result.data.income;
+            this.totalSpent = result.data.spent;
+        },
     }
 });

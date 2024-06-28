@@ -15,6 +15,15 @@ onMounted(async () => {
                 "dangerouslyHTMLString": true
             });
         });
+    await reportStore.getTotalIncomes()
+        .catch(function ({ response }) {
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
 });
 </script>
 <template>
@@ -26,7 +35,7 @@ onMounted(async () => {
             <total-bill :amount-month="reportStore.totalMonth" :amount-year="reportStore.totalYear" />
         </v-col>
         <v-col cols="12" md="4">
-            <total-income />
+            <total-income :total-income="reportStore.totalIncome" :total-spent="reportStore.totalSpent" />
         </v-col>
     </v-row>
     <v-row>
