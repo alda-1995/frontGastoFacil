@@ -22,7 +22,10 @@ export const useReportGastoStore = defineStore({
         async getTotalGasto() {
             const idUser = this.getUserId;
             const result = await axios.get(`${baseUrl}/get-spents-totals/${idUser}`);
-            this.listSpents = result.data;
+            console.log(result.data);
+            this.totalDay = result.data.totalDay;
+            this.totalMonth = result.data.totalMonth;
+            this.totalYear = result.data.totalYear;
         },
         async getTotalGastoByMonth(mes) {
             const idUser = this.getUserId;

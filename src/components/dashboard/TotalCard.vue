@@ -1,7 +1,13 @@
 <script setup>
-import { shallowRef } from 'vue';
-import { ArchiveIcon, CopyIcon, DownloadIcon, FileExportIcon } from 'vue-tabler-icons';
+import { defineProps } from 'vue';
 import iconCard from '@/assets/images/icons/icon-card.svg';
+
+const props = defineProps({
+    amount: {
+        type: String,
+        default: '',
+    },
+})
 </script>
 
 <template>
@@ -13,7 +19,7 @@ import iconCard from '@/assets/images/icons/icon-card.svg';
                 </v-btn>
             </div>
             <h2 class="text-h1-me font-weight-medium">
-                $500.00 <CircleArrowUpRightIcon stroke-width="1.5" width="28" class="text-white" />
+                ${{amount}} <CircleArrowUpRightIcon stroke-width="1.5" width="28" class="text-white" />
             </h2>
             <span class="subtitle-1-me text-white">Total Gastado</span>
         </v-card-text>

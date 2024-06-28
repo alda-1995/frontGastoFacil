@@ -7,7 +7,6 @@ const listMessage = function (errorData) {
 }
 
 const getMessageErrors = function (response) {
-    console.log(response);
     let errorMessage = "";
     switch (response.status) {
         case 400:

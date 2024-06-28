@@ -1,6 +1,17 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineProps } from 'vue';
 import { ArrowDownLeftCircleIcon, ShoppingCartIcon, CircleArrowDownLeftIcon } from 'vue-tabler-icons';
+
+const props = defineProps({
+    amountMonth: {
+        type: String,
+        default: '',
+    },
+    amountYear: {
+        type: String,
+        default: '',
+    },
+})
 
 const tab = ref('1');
 
@@ -139,7 +150,7 @@ const lineChart2 = {
           <v-row>
             <v-col cols="6">
               <h2 class="text-h1-me font-weight-medium">
-                $108
+                ${{ amountMonth }}
                 <CircleArrowDownLeftIcon stroke-width="1.5" width="28" class="text-white" />
               </h2>
               <span class="subtitle-1-me text-white">Total del mes</span>
@@ -153,7 +164,7 @@ const lineChart2 = {
           <v-row>
             <v-col cols="6">
               <h2 class="text-h1-me font-weight-medium">
-                $961
+                ${{ amountYear }}
                 <ArrowDownLeftCircleIcon stroke-width="1.5" width="28" class="text-white" />
               </h2>
               <span class="subtitle-1-me text-white">Total por año</span>
