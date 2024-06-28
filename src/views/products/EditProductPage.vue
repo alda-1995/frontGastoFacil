@@ -87,7 +87,10 @@ onMounted(async () => {
                                 <text-area v-model="state.description" label="Descripción" />
                             </v-col>
                         </v-row>
-                        <btn-main color="primary" type="submit" :loading="loading" class="mb-4">Guardar</btn-main>
+                        <div class="d-flex">
+                            <btn-main color="primary" type="submit" :loading="loading" class="mr-4">Guardar</btn-main>
+                            <btn-main color="secondary" variant="text" type="link" href="/productos">Cancelar</btn-main>
+                        </div>
                     </form>
                 </v-card-text>
             </v-card>
