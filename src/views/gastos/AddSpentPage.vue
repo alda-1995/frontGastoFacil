@@ -17,7 +17,7 @@ const state = reactive({
     amount: '',
     description: '',
     products: [],
-    dateCurrent: null,
+    dateCurrent: new Date(),
     income: false
 });
 
@@ -74,6 +74,11 @@ onMounted(async () => {
                 <v-card-text class="padding-g-forms">
                     <form novalidate @submit.prevent="submit">
                         <v-row>
+                            <v-col cols="12">
+                                <text-area v-model="state.description" label="Descripción" />
+                            </v-col>
+                        </v-row>
+                        <v-row>
                             <v-col cols="12" sm="6">
                                 <input-field icon="mdi-currency-usd" type="number" v-model="state.amount"
                                     :error-messages="v$.amount.$errors.map(e => e.$message)" @input="v$.amount.$touch"
@@ -92,11 +97,6 @@ onMounted(async () => {
                             <v-col cols="12">
                                 <select-multiple title-select="name" value-select="id" :items="listProducts"
                                     label="Asignar productos" v-model="state.products" />
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="12">
-                                <text-area v-model="state.description" label="Descripción" />
                             </v-col>
                         </v-row>
                         <div class="d-flex">

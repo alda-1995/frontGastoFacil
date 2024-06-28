@@ -9,6 +9,7 @@ import getMessageErrors from '@/helpers/util';
 import { toast } from "vue3-toastify";
 import formatDate from '@/helpers/dataUtils';
 import { useRoute } from 'vue-router'
+import moment from 'moment';
 
 const productStore = useProductStore();
 const spentStore = useSpentStore();
@@ -76,14 +77,15 @@ onMounted(async () => {
                 "dangerouslyHTMLString": true
             });
         });
-    console.log(resultData);
     state.transaction_id = resultData.transaction_id;
     state.amount = resultData.amount;
     state.description = resultData.description;
-    state.dateCurrent = formatDate(resultData.currentDate, 'DD-MM-yyyy');
     state.income = (resultData.income == 1) ? true : false;
     state.products = resultData.products;
-    console.log(state.dateCurrent);
+
+    let dateMoment = moment(resultData.currentDate);
+    let dateParse = new Date(dateMoment);
+    state.dateCurrent = dateParse;
 });
 </script>
 <template>
@@ -96,6 +98,11 @@ onMounted(async () => {
                 <v-divider />
                 <v-card-text class="padding-g-forms">
                     <form novalidate @submit.prevent="submit">
+                        <v-row>
+                            <v-col cols="12">
+                                <text-area v-model="state.description" label="Descripción" />
+                            </v-col>
+                        </v-row>
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <input-field icon="mdi-currency-usd" type="number" v-model="state.amount"
@@ -115,11 +122,6 @@ onMounted(async () => {
                             <v-col cols="12">
                                 <select-multiple title-select="name" value-select="id" :items="listProducts"
                                     label="Asignar productos" v-model="state.products" />
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="12">
-                                <text-area v-model="state.description" label="Descripción" />
                             </v-col>
                         </v-row>
                         <div class="d-flex">

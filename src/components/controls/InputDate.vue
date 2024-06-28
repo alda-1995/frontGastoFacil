@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
-// import { es } from 'date-fns/locale';
 
 const props = defineProps({
     modelValue: {
@@ -36,6 +35,6 @@ const value = computed({
 </script>
 <template>
     <VueDatePicker class="input-date font-button"
-    :required="isRequired" format="dd-MM-yyyy"
+    :required="isRequired" :format="format"
     @input="onInput" @blur="onBlur" v-model="value"></VueDatePicker>
 </template>
