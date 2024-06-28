@@ -10,8 +10,8 @@ import { toast } from "vue3-toastify";
 const productStore = useProductStore();
 const loading = ref(false);
 const state = reactive({
-    name: 'Product 1',
-    description: 'lorem lorem asdasda asd as',
+    name: '',
+    description: '',
 });
 
 const rules = {

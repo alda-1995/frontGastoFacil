@@ -22,6 +22,14 @@ const props = defineProps({
         type: String,
         default: 'Label',
     },
+    titleSelect: {
+        type: String,
+        default: '',
+    },
+    valueSelect: {
+        type: String,
+        default: '',
+    },
     isRequired: {
         type: Boolean,
         default: false,
@@ -41,7 +49,7 @@ const value = computed({
 </script>
 <template>
     <div>
-        <v-select class="font-button" color="primary" variant="outlined" v-model="value" :items="items" :label="label" item-title="nombre" item-value="value" multiple>
+        <v-select class="font-button" color="primary" variant="outlined" v-model="value" :items="items" :label="label" :item-title="titleSelect" :item-value="valueSelect" multiple>
         </v-select>
     </div>
 </template>

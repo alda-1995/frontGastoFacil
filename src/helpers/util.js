@@ -1,4 +1,4 @@
-const listMessage = function(errorData){
+const listMessage = function (errorData) {
     let mensajes = "";
     Object.keys(errorData).forEach(key => {
         mensajes += `${errorData[key]}\n`;
@@ -6,7 +6,8 @@ const listMessage = function(errorData){
     return mensajes;
 }
 
-const getMessageErrors = function(response){
+const getMessageErrors = function (response) {
+    console.log(response);
     let errorMessage = "";
     switch (response.status) {
         case 400:
@@ -14,6 +15,9 @@ const getMessageErrors = function(response){
             break;
         case 401:
             errorMessage = response.data.message;
+            break;
+        case 500:
+            errorMessage = response.data.error;
             break;
         default:
             errorMessage = "Ocurrio al intentar, vuelve a intentarlo."

@@ -8,6 +8,7 @@ import LabelAdd from '../LabelAdd.vue';
 import SelectMultiple from '../SelectMultiple.vue';
 import InputDate from '../InputDate.vue';
 import TableAction from '../TableAction.vue';
+import ErrorMessages from '../ErrorMessages.vue';
 
 export {
     BtnMain,
@@ -19,5 +20,6 @@ export {
     LabelAdd,
     SelectMultiple,
     InputDate,
-    TableAction
+    TableAction,
+    ErrorMessages
 };

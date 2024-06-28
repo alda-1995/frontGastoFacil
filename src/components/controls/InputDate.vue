@@ -7,10 +7,6 @@ const props = defineProps({
         type: Date,
         default: null,
     },
-    errorMessages: {
-        type: Array,
-        default: () => [],
-    },
     label: {
         type: String,
         default: 'Label'
@@ -19,6 +15,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    format: {
+        type: String,
+        default: "dd-MM-yyyy"
+    }
 })
 
 const emit = defineEmits(['update:modelValue', 'blur', 'input'])
@@ -38,5 +38,4 @@ const value = computed({
     <VueDatePicker class="input-date font-button"
     :required="isRequired" format="dd-MM-yyyy"
     @input="onInput" @blur="onBlur" v-model="value"></VueDatePicker>
-    <errors-message :errors="errorMessages" />
 </template>
