@@ -8,6 +8,11 @@ const listMessage = function (errorData) {
 
 const getMessageErrors = function (response) {
     let errorMessage = "";
+    if(!response)
+        return errorMessage;
+    if (response && response.statusText === "Unauthorized") {
+        return "";
+    }
     switch (response.status) {
         case 400:
             errorMessage = listMessage(response.data.error);

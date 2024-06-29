@@ -91,6 +91,8 @@ watch(selectedMonth, async (newFilterMonth) => {
     }
     await reportStore.getTotalGastoByMonth(newFilterMonth).catch(function ({ response }) {
         let errorMessage = getMessageErrors(response);
+        if (!errorMessage)
+        return;
         toast(errorMessage, {
             "theme": "auto",
             "type": "warning",
@@ -107,6 +109,8 @@ const editSpent = (item) => {
 const deleteSpent = async (item) => {
     await spentStore.deleteSpent(item.transaction_id).catch(function ({ response }) {
         let errorMessage = getMessageErrors(response);
+        if (!errorMessage)
+        return;
         toast(errorMessage, {
             "theme": "auto",
             "type": "warning",
@@ -120,6 +124,8 @@ onMounted(async () => {
     await spentStore.getSpents()
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

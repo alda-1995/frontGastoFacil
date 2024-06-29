@@ -35,6 +35,8 @@ const submit = async () => {
     await authStore.register(state.name, state.email, state.password)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

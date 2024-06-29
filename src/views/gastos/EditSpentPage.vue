@@ -45,6 +45,8 @@ const submit = async () => {
     await spentStore.editSpend(state.transaction_id, state.amount, state.description, currentFormat, state.income, state.products)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

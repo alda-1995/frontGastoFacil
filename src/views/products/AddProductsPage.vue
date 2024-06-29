@@ -28,6 +28,8 @@ const submit = async () => {
     await productStore.addProduct(state.name, state.description)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

@@ -31,6 +31,8 @@ const editProduct = (item) => {
 const deleteProduct = async (item) => {
     await productStore.deleteProduct(item.id).catch(function ({ response }) {
         let errorMessage = getMessageErrors(response);
+        if (!errorMessage)
+        return;
         toast(errorMessage, {
             "theme": "auto",
             "type": "warning",
@@ -44,6 +46,8 @@ onMounted(async () => {
     await productStore.getProducts()
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

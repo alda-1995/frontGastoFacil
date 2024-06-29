@@ -41,6 +41,8 @@ const submit = async () => {
     await spentStore.addSpend(state.amount, state.description, currentFormat, state.income, state.products)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",

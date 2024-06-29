@@ -35,6 +35,8 @@ const submit = async () => {
     await productStore.saveProduct(state.id, state.name, state.description)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",
@@ -51,6 +53,8 @@ onMounted(async () => {
     const resultData = await productStore.getDetailProduct(route.params.id)
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+            return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",
