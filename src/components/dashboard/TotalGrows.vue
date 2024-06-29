@@ -134,9 +134,9 @@ watch(selectTotal, async (selectTotal) => {
             <span class="subtitle-2-me text-disabled font-weight-bold">Total gastado</span>
             <h3 class="text-h3-me mt-1">${{ totalSpent }}</h3>
           </v-col>
-          <v-col cols="12" sm="3">
+          <!-- <v-col cols="12" sm="3">
             <select-field label="Filtrar total:" v-model="selectTotal" :items="itemsFilter" />
-          </v-col>
+          </v-col> -->
         </v-row>
         <div class="mt-4">
           <apexchart type="bar" height="480" :options="chartOptions" :series="lineChart.series"> </apexchart>
