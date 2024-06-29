@@ -1,10 +1,23 @@
 <script setup>
-import { ref, computed, defineProps } from 'vue';
+import { ref, computed, defineProps, watch } from 'vue';
+import { SelectField } from '@/components/controls/common';
 
 const props = defineProps({
   spentData: {
     type: Array,
     default: () => [],
+  },
+  amountToday: {
+    type: String,
+    default: '',
+  },
+  amountMonth: {
+    type: String,
+    default: '',
+  },
+  amountYear: {
+    type: String,
+    default: '',
   },
   incomeData: {
     type: Array,
@@ -12,11 +25,12 @@ const props = defineProps({
   },
 })
 
-const select = ref({ state: 'Hoy', abbr: 'FL' });
-const items = [
-  { state: 'Hoy', abbr: 'FL' },
-  { state: 'Mes', abbr: 'GA' },
-  { state: 'Año', abbr: 'NE' }
+const totalSpent = ref(props.amountToday);
+const selectTotal = ref('Today');
+const itemsFilter = [
+  { name: 'Hoy', value: 'Today' },
+  { name: 'Mes', value: 'Month' },
+  { name: 'Año', value: 'Year' }
 ];
 
 const chartOptions = computed(() => {
@@ -96,6 +110,19 @@ const lineChart = {
     },
   ]
 };
+
+watch(selectTotal, async (selectTotal) => {
+  switch (selectTotal) {
+    case "Month":
+      totalSpent.value = props.amountMonth;
+      break;
+    case "Year":
+      totalSpent.value = props.amountYear;
+    default:
+      totalSpent.value = props.amountToday;
+      break;
+  }
+})
 </script>
 
 <template>
@@ -104,24 +131,11 @@ const lineChart = {
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="9">
-            <span class="subtitle-2-me text-disabled font-weight-bold">Total</span>
-            <h3 class="text-h3-me mt-1">$2,324.00</h3>
+            <span class="subtitle-2-me text-disabled font-weight-bold">Total gastado</span>
+            <h3 class="text-h3-me mt-1">${{ totalSpent }}</h3>
           </v-col>
           <v-col cols="12" sm="3">
-            <v-select
-              color="primary"
-              variant="outlined"
-              hide-details
-              v-model="select"
-              :items="items"
-              item-title="state"
-              item-value="abbr"
-              label="Select"
-              persistent-hint
-              return-object
-              single-line
-            >
-            </v-select>
+            <select-field label="Filtrar total:" v-model="selectTotal" :items="itemsFilter" />
           </v-col>
         </v-row>
         <div class="mt-4">

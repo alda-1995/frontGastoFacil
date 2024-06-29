@@ -50,7 +50,10 @@ onMounted(async () => {
     <v-row>
         <v-col cols="12" lg="8">
             <template v-if="reportStore.spentSerieSpent.length > 0 && reportStore.spentSerieIncome.length > 0">
-                <total-grows :spent-data="reportStore.spentSerieSpent" :income-data="reportStore.spentSerieIncome" />
+                <total-grows
+                :amount-today="reportStore.totalDay"
+                :amount-month="reportStore.totalMonth" :amount-year="reportStore.totalYear"
+                :spent-data="reportStore.spentSerieSpent" :income-data="reportStore.spentSerieIncome" />
             </template>
         </v-col>
         <v-col cols="12" lg="4">
