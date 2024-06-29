@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, ref } from 'vue'
 import { TableAction } from '@/components/controls/common';
 import { useRouter } from 'vue-router'
 import { useProductStore } from '@/store/productStore';
@@ -8,6 +8,7 @@ import { toast } from "vue3-toastify";
 
 const productStore = useProductStore();
 let router = useRouter()
+const loadingData = ref(true);
 
 const headersTable = [
     { title: 'Acciones', key: 'actions', sortable: false },
@@ -55,12 +56,15 @@ onMounted(async () => {
             });
         });
     state.listItems = productStore.listProducts;
+    loadingData.value = false;
 });
 </script>
 <template>
     <v-row>
         <v-col cols="12" sm="10">
-            <v-card>
+            <v-skeleton-loader type="table-heading, table-tbody" height="400"
+            v-if="loadingData"></v-skeleton-loader>
+            <v-card v-else>
                 <v-card-title class="padding-g-forms">
                     Lista de productos
                 </v-card-title>

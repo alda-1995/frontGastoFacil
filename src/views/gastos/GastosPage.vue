@@ -11,6 +11,7 @@ import { useReportGastoStore } from '@/store/reportGastoStore';
 let spentStore = useSpentStore();
 const reportStore = useReportGastoStore();
 let router = useRouter();
+const loadingData = ref(true);
 const selectedMonth = ref(null);
 const state = reactive({
     listItems: []
@@ -133,12 +134,15 @@ onMounted(async () => {
             });
         });
     state.listItems = spentStore.listSpents;
+    loadingData.value = false;
 });
 </script>
 <template>
     <v-row>
         <v-col cols="12" sm="10">
-            <v-card>
+            <v-skeleton-loader type="table-heading, table-tbody" height="400"
+            v-if="loadingData"></v-skeleton-loader>
+            <v-card v-else>
                 <v-card-title class="padding-g-forms">
                     Mis gastos
                 </v-card-title>

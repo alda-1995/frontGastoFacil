@@ -15,6 +15,7 @@ const productStore = useProductStore();
 const spentStore = useSpentStore();
 const route = useRoute();
 
+const loadingData = ref(true);
 const loading = ref(false);
 const state = reactive({
     transaction_id: '',
@@ -88,12 +89,15 @@ onMounted(async () => {
     let dateMoment = moment(resultData.currentDate);
     let dateParse = new Date(dateMoment);
     state.dateCurrent = dateParse;
+    loadingData.value = false;
 });
 </script>
 <template>
     <v-row>
         <v-col cols="12" sm="10" md="8">
-            <v-card>
+            <v-skeleton-loader type="table-heading, list-item, list-item, button" height="400"
+            v-if="loadingData"></v-skeleton-loader>
+            <v-card v-else>
                 <v-card-title class="padding-g-forms">
                     Editar gasto
                 </v-card-title>
