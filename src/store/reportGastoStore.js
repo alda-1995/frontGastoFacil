@@ -11,6 +11,7 @@ export const useReportGastoStore = defineStore({
         totalMonth: null,
         totalYear: null,
         listSpents: [],
+        listProductSold: [],
         totalIncome: null,
         totalSpent: null,
         spentSerieSpent: [],
@@ -46,6 +47,11 @@ export const useReportGastoStore = defineStore({
             const result = await axios.get(`${baseUrl}/get-charts-incomes/${idUser}`);
             this.spentSerieSpent = result.data.gasto;
             this.spentSerieIncome = result.data.ingreso;
+        },
+        async getMostSoldProducts() {
+            const idUser = this.getUserId;
+            const result = await axios.get(`${baseUrl}/get-products-most-sold/${idUser}`);
+            this.listProductSold = result.data;
         },
     }
 });

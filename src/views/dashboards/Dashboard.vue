@@ -41,6 +41,17 @@ onMounted(async () => {
                 "dangerouslyHTMLString": true
             });
         });
+    await reportStore.getMostSoldProducts()
+        .catch(function ({ response }) {
+            let errorMessage = getMessageErrors(response);
+            if (!errorMessage)
+                return;
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
 });
 </script>
 <template>
@@ -64,7 +75,9 @@ onMounted(async () => {
             </template>
         </v-col>
         <v-col cols="12" lg="4">
-            <PopularBill />
+            <template v-if="reportStore.listProductSold.length > 0">
+                <popular-bill :list-products="reportStore.listProductSold" />
+            </template>
         </v-col>
     </v-row>
 </template>
