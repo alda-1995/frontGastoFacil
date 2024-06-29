@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "npx http-server -P http://127.0.0.1:${PORT} ./dist"
+    "start": "npx http-server -P https://frontgastofacil-production.up.railway.app:${PORT} ./dist"
   },
   "dependencies": {
     "@vuelidate/core": "^2.0.3",
