@@ -12,7 +12,9 @@ export const useReportGastoStore = defineStore({
         totalYear: null,
         listSpents: [],
         totalIncome: null,
-        totalSpent: null
+        totalSpent: null,
+        spentSerieSpent: [],
+        spentSerieIncome: [],
     }),
     getters: {
         getUserId(){
@@ -38,6 +40,12 @@ export const useReportGastoStore = defineStore({
             const result = await axios.get(`${baseUrl}/get-total-incomes/${idUser}`);
             this.totalIncome = result.data.income;
             this.totalSpent = result.data.spent;
+        },
+        async getChartIncomes() {
+            const idUser = this.getUserId;
+            const result = await axios.get(`${baseUrl}/get-charts-incomes/${idUser}`);
+            this.spentSerieSpent = result.data.gasto;
+            this.spentSerieIncome = result.data.ingreso;
         },
     }
 });

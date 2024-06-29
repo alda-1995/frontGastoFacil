@@ -1,5 +1,16 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineProps } from 'vue';
+
+const props = defineProps({
+  spentData: {
+    type: Array,
+    default: () => [],
+  },
+  incomeData: {
+    type: Array,
+    default: () => [],
+  },
+})
 
 const select = ref({ state: 'Hoy', abbr: 'FL' });
 const items = [
@@ -8,8 +19,7 @@ const items = [
   { state: 'Año', abbr: 'NE' }
 ];
 
-// chart 1
-const chartOptions1 = computed(() => {
+const chartOptions = computed(() => {
   return {
     chart: {
       type: 'bar',
@@ -18,7 +28,7 @@ const chartOptions1 = computed(() => {
       foreColor: '#a1aab2',
       stacked: true
     },
-    colors: ['#eef2f6', '#1e88e5', '#5e35b1', '#ede7f6'],
+    colors: ['#E53935', '#1E88E5'],
     responsive: [
       {
         breakpoint: 480,
@@ -39,7 +49,7 @@ const chartOptions1 = computed(() => {
     },
     xaxis: {
       type: 'category',
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     },
     legend: {
       show: true,
@@ -74,25 +84,16 @@ const chartOptions1 = computed(() => {
   };
 });
 
-// chart 1
-const lineChart1 = {
+const lineChart = {
   series: [
     {
-      name: 'Investment',
-      data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
+      name: 'Gasto',
+      data: props.spentData
     },
     {
-      name: 'Loss',
-      data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
+      name: 'Ingreso',
+      data: props.incomeData
     },
-    {
-      name: 'Profit',
-      data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
-    },
-    {
-      name: 'Maintenance',
-      data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
-    }
   ]
 };
 </script>
@@ -124,7 +125,7 @@ const lineChart1 = {
           </v-col>
         </v-row>
         <div class="mt-4">
-          <apexchart type="bar" height="480" :options="chartOptions1" :series="lineChart1.series"> </apexchart>
+          <apexchart type="bar" height="480" :options="chartOptions" :series="lineChart.series"> </apexchart>
         </div>
       </v-card-text>
     </v-card>

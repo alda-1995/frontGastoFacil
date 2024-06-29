@@ -24,6 +24,15 @@ onMounted(async () => {
                 "dangerouslyHTMLString": true
             });
         });
+    await reportStore.getChartIncomes()
+        .catch(function ({ response }) {
+            let errorMessage = getMessageErrors(response);
+            toast(errorMessage, {
+                "theme": "auto",
+                "type": "warning",
+                "dangerouslyHTMLString": true
+            });
+        });
 });
 </script>
 <template>
@@ -40,7 +49,9 @@ onMounted(async () => {
     </v-row>
     <v-row>
         <v-col cols="12" lg="8">
-            <TotalGrows />
+            <template v-if="reportStore.spentSerieSpent.length > 0 && reportStore.spentSerieIncome.length > 0">
+                <total-grows :spent-data="reportStore.spentSerieSpent" :income-data="reportStore.spentSerieIncome" />
+            </template>
         </v-col>
         <v-col cols="12" lg="4">
             <PopularBill />
