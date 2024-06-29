@@ -10,8 +10,8 @@ import getMessageErrors from '@/helpers/util';
 const authStore = useAuthStore();
 const loading = ref(false);
 const state = reactive({
-    email: 'aldairreyess04@gmail.com',
-    password: 'aldair123',
+    email: '',
+    password: '',
     isRemember: false
 });
 const rules = {
