@@ -15,6 +15,16 @@ const AuthRoutes = {
             path: '/auth/register',
             component: () => import('@/views/authentication/auth/RegisterPage.vue')
         },
+        {
+            name: 'ForgotPassword',
+            path: '/auth/forgotpassword',
+            component: () => import('@/views/authentication/auth/ForgotPasswordPage.vue')
+        },
+        {
+            name: 'ResetPassword',
+            path: '/auth/resetpassword/:token',
+            component: () => import('@/views/authentication/auth/ResetPasswordPage.vue')
+        },
     ]
 };
 

@@ -45,6 +45,7 @@ const value = computed({
 </script>
 <template>
     <v-text-field color="primary"
+    hide-details="auto"
     :append-inner-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'"
     @click:append-inner="clickIcon"
     :type="showIcon ? 'text' : 'password'" :prepend-inner-icon="icon"

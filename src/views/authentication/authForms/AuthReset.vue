@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
-import { email, required, helpers } from '@vuelidate/validators';
+import { email, required, helpers, sameAs } from '@vuelidate/validators';
 import { InputField, InputPassword, BtnMain } from '@/components/controls/common';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from "vue3-toastify";
@@ -12,7 +12,7 @@ const loading = ref(false);
 const state = reactive({
     email: '',
     password: '',
-    isRemember: false
+    confirmPassword: ''
 });
 const rules = {
     email: {
@@ -22,6 +22,10 @@ const rules = {
     password: {
         required: helpers.withMessage('La contraseña es requerida', required),
     },
+    confirmPassword: {
+        required: helpers.withMessage('Confirma la contraseña', required),
+        sameAsPassword: sameAs(state.password)
+    }
 }
 const v$ = useVuelidate(rules, state)
 const submit = async () => {
@@ -33,7 +37,7 @@ const submit = async () => {
         .catch(function ({ response }) {
             let errorMessage = getMessageErrors(response);
             if (!errorMessage)
-            return;
+                return;
             toast(errorMessage, {
                 "theme": "auto",
                 "type": "warning",
@@ -44,7 +48,6 @@ const submit = async () => {
 };
 </script>
 <template>
-    <h5 class="text-h5-me text-center my-4 mb-8">Iniciar sesión con dirección de correo electrónico</h5>
     <form @submit.prevent="submit" novalidate>
         <v-row>
             <v-col cols="12">
@@ -57,19 +60,14 @@ const submit = async () => {
                     isRequired label="Contraseña" icon="mdi-lock-outline" @input="v$.password.$touch"
                     @blur="v$.password.$touch()" />
             </v-col>
+            <v-col cols="12">
+                <input-password v-model="state.confirmPassword" :error-messages="v$.confirmPassword.$errors.map(e => e.$message)"
+                    isRequired label="Confirmar Contraseña" icon="mdi-lock-outline" @input="v$.confirmPassword.$touch"
+                    @blur="v$.confirmPassword.$touch()" />
+            </v-col>
         </v-row>
-        <div class="d-sm-flex align-center mt-2 mb-7 mb-sm-0">
-            <v-checkbox v-model="state.isRemember" label="¿Recordarme?" required color="primary" class="ms-n2"
-                hide-details></v-checkbox>
-            <div class="ml-auto">
-                <router-link to="/auth/forgotpassword" class="text-primary font-button text-decoration-none">OLVIDE CONTRASEÑA?</router-link>
-            </div>
-        </div>
-        <btn-main :is-block="true" type="submit" :loading="loading" class="mb-4">Entrar</btn-main>
-        <div class="mt-5 text-right">
-            <v-divider />
-            <btn-main href="/auth/register" color="darkText" variant="plain" type="link"
-                class="mt-2 text-capitalize mr-n2">No tengo una cuenta?</btn-main>
+        <div class="mt-5">
+            <btn-main :is-block="true" type="submit" :loading="loading" class="mb-4">Restablecer</btn-main>
         </div>
     </form>
 </template>
